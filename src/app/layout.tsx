@@ -1,3 +1,4 @@
+import "./global.css"
 export const metadata = {
   title: 'DOCAUTO',
   description: 'Gerador de documentos criado por Óscar Jeremias',

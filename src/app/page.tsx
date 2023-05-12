@@ -8,8 +8,9 @@ export default function Home() {
   const [link,setLink] = useState("")
   const [text,setText] = useState("")
 
-  async function gerar() {
-
+  async function gerar(e:any) {
+    e.preventDefault()
+  
     const configuration = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -65,7 +66,9 @@ export default function Home() {
   }
   return (
     <main className="bg-white flex min-h-screen flex-col items-center justify-center gap-8 p-24">
-      <form onSubmit={gerar} className="flex gap-8">
+      <form onSubmit={(e) => {
+        gerar(e)
+      }} className="flex gap-8">
         <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Tema da documento"/>
         <input type="submit" value="Gerar" className="bg-black text-white rounded-lg p-4 hover:bg-transparent hover:text-black transition-all"/>
       </form>
