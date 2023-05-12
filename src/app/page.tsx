@@ -7,8 +7,10 @@ import { Configuration, OpenAIApi } from "openai"
 export default function Home() {
   const [link,setLink] = useState("")
   const [text,setText] = useState("")
+  const [load,setLoad] = useState(false)
 
   async function gerar(e:any) {
+    setLoad(true)
     e.preventDefault()
   
     const configuration = new Configuration({
@@ -61,6 +63,7 @@ export default function Home() {
     const blob = new Blob([doc.output('blob')], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
     setLink(url)
+    setLoad(false)
 
 
   }
@@ -69,13 +72,14 @@ export default function Home() {
       <form onSubmit={(e) => {
         gerar(e)
       }} className="flex gap-8">
-        <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Tema da documento"/>
-        <input type="submit" value="Gerar" className="bg-black text-white rounded-lg p-4 hover:bg-transparent hover:text-black transition-all"/>
+        <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Tema da documento" className="py-2 px-4"/>
+        <input type="submit" value="Gerar" className="bg-black text-white rounded-lg py-2 px-6 hover:bg-transparent hover:text-black transition-all"/>
       </form>
 
-      <a href={link} download className="bg-black text-white rounded-lg p-4 hover:bg-transparent hover:text-black transition-all">
+      <a href={link} download className="bg-black text-white rounded-lg py-2 px-6 hover:bg-transparent hover:text-black transition-all">
         baixar
       </a>
+      { load && <div className="my-8">Carregando...</div>}
     </main>
   )
 }
