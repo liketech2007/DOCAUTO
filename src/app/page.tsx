@@ -17,7 +17,7 @@ export default function Home() {
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [{role: "user", content: text}],
+      messages: [{role: "user", content: `Faz um artigo com introdução desenvolvimento e conclusão sobre ${text}`}],
     });
     const  data = completion !== null ? completion.data.choices[0].message?.content : ""
 
@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <main className="bg-white flex min-h-screen flex-col items-center justify-center gap-8 p-24">
       <form onSubmit={gerar} className="flex gap-8">
-        <input type="text" value={text} onChange={(e) => setText(e.target.value)}/>
+        <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Tema da documento"/>
         <input type="submit" value="Gerar" className="bg-black text-white rounded-lg p-4 hover:bg-transparent hover:text-black transition-all"/>
       </form>
 
